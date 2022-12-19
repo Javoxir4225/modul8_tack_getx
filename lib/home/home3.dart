@@ -91,7 +91,7 @@ class MyHome3 extends StatelessWidget {
                       ),
                       title: Text(
                         verse ?? "--",
-                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.rtl,
                         style: const TextStyle(
                           fontFamily: 'Noor',
                           fontSize: 26,
