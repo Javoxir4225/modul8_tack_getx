@@ -66,11 +66,15 @@ class MyHome2 extends StatelessWidget {
               TextField(
                 controller: _editingController,
                 onChanged: (value) {
-                  if (value.isEmpty == true) {
-                    ctrll.onPressed2(false);
-                  } else {
-                    ctrll.onPressed2(true);
-                  }},
+                  if (value.isEmpty) {
+                    ctrll.onPressed3();
+                    // ctrll.onPressed2(false);
+                  }
+                  if (value.isNotEmpty) {
+                    ctrll.onPressed4(value);
+                    // ctrll.onPressed2(true);
+                  }
+                },
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(vertical: 8),
@@ -112,9 +116,53 @@ class MyHome2 extends StatelessWidget {
                   child: Lottie.asset("assets/lottie/loading.json"),
                 ),
               )
-            : ctrll.istext
-                ? Center(
-                    child: Lottie.asset("assets/lottie/loading3.json",width: 200),
+            : ctrll.chaptersSearch!.isNotEmpty
+                ? ListView.separated(
+                    separatorBuilder: (context, index) => const Divider(
+                      color: Colors.amber,
+                      height: 0.5,
+                      thickness: 1,
+                    ),
+                    itemBuilder: (context, index) => ListTile(
+                      tileColor: Colors.grey.shade800,
+                      title: Row(
+                        children: [
+                          Text(
+                            "${index + 1}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 18),
+                          Text(
+                            ctrll.chaptersSearch?[index]?.englishName ?? "",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: Text(
+                        ctrll.chaptersSearch?[index]?.name ?? "",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      onTap: () {
+                        Get.to(
+                          MyHome3(),
+                          arguments: ctrll.chaptersSearch?[index],
+                        );
+                        // Get.offNamed("/home3",arguments: chapters?[index]);
+                      },
+                    ),
+                    itemCount: ctrll.chaptersSearch?.length as int,
                   )
                 : RefreshIndicator(
                     onRefresh: _onRefresh,

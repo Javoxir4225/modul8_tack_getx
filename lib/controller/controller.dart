@@ -10,8 +10,10 @@ class Controller extends GetxController {
   // data
 
   List<Chapter?>? _chapters = [];
+  List<Chapter?>? _chaptersSearch = [];
 
   List<Chapter?>? get chapters => _chapters;
+  List<Chapter?>? get chaptersSearch => _chaptersSearch;
 
   bool get isRefresh => _isRefresh;
   bool get istext => _istext;
@@ -30,8 +32,30 @@ class Controller extends GetxController {
     _isRefresh = !_isRefresh;
     update();
   }
+
   void onPressed2(bool loading) {
     _istext = loading;
+    update();
+  }
+
+  void onPressed3() {
+    _chaptersSearch = [];
+    update();
+  }
+
+  void onPressed4(String value) {
+    var lowerCaseQuery = value.toLowerCase();
+    _chaptersSearch = chapters!.where((chapter) {
+      final chapterName =
+          chapter!.englishName!.toLowerCase().contains(lowerCaseQuery);
+      return chapterName;
+    }).toList(growable: false)
+      ..sort(
+        (a, b) =>
+            a!.englishName!.toLowerCase().indexOf(lowerCaseQuery).compareTo(
+                  b!.englishName!.toLowerCase().indexOf(lowerCaseQuery),
+                ),
+      );
     update();
   }
 
