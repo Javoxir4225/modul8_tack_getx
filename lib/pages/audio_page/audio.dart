@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MyAudio extends StatefulWidget {
   final int index;
-  const MyAudio( {Key? key,required this.index}):super(key: key);
+  const MyAudio({Key? key, required this.index}) : super(key: key);
 
   @override
   State<MyAudio> createState() => _MyAudioState();
@@ -20,14 +20,13 @@ class _MyAudioState extends State<MyAudio> {
     super.initState();
 
     // setAudio();
-    
+
     audioPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
         isPlayer = event == PlayerState.PLAYING;
-        
       });
     });
-    
+
     audioPlayer.onDurationChanged.listen((newDuration) {
       setState(() {
         duration = newDuration;
@@ -37,7 +36,6 @@ class _MyAudioState extends State<MyAudio> {
       setState(() {
         position = newPosition;
       });
-     
     });
   }
 
@@ -59,7 +57,7 @@ class _MyAudioState extends State<MyAudio> {
   @override
   void dispose() {
     audioPlayer.dispose();
-    
+
     super.dispose();
   }
 
@@ -116,10 +114,18 @@ class _MyAudioState extends State<MyAudio> {
                 await audioPlayer.pause();
               } else {
                 // await audioPlayer.resume();
-                String url = 'https://server8.mp3quran.net/afs/00${widget.index+1}.mp3';
-                await audioPlayer.play(  url);
-                //   'https://server8.mp3quran.net/afs/002.mp3'
-                //  'https://server8.mp3quran.net/afs/003.mp3'
+                String url;
+                if (widget.index < 10) {
+                  url =
+                      'https://server8.mp3quran.net/afs/00${widget.index + 1}.mp3';
+                } else if (widget.index < 100) {
+                  url =
+                      'https://server8.mp3quran.net/afs/0${widget.index + 1}.mp3';
+                } else {
+                  url =
+                      'https://server8.mp3quran.net/afs/${widget.index + 1}.mp3';
+                }
+                await audioPlayer.play(url);
               }
             },
             child: Icon(

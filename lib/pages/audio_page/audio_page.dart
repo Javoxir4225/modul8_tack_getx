@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modul8_tack_getx/animations/animation.dart';
-import 'package:modul8_tack_getx/home/audio.dart';
+import 'package:modul8_tack_getx/pages/audio_page/audio.dart';
 import 'package:modul8_tack_getx/models/chapter/chapter.dart';
 
-class MyHome3 extends StatelessWidget {
-  const MyHome3({
+class AudioPage extends StatelessWidget {
+  const AudioPage({
     Key? key,
   }) : super(key: key);
   // Chapter? data;
@@ -28,7 +28,7 @@ class MyHome3 extends StatelessWidget {
             color: Colors.black,
             borderRadius: BorderRadius.circular(16),
           ),
-          child:  MyAudio(index: index),
+          child: MyAudio(index: index),
         ),
       ),
       body: CustomScrollView(

@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modul8_tack_getx/animations/animation.dart';
 import 'package:modul8_tack_getx/controller/controller.dart';
-import 'package:modul8_tack_getx/home/home3.dart';
+import 'package:modul8_tack_getx/pages/audio_page/audio_page.dart';
 
-class MyHome2 extends StatelessWidget {
+class MyHome extends StatelessWidget {
   final Controller ctrll;
-  MyHome2({super.key, required this.ctrll});
+  MyHome({super.key, required this.ctrll});
 
   final TextEditingController _editingController = TextEditingController();
 
@@ -18,17 +17,6 @@ class MyHome2 extends StatelessWidget {
       backgroundColor: Colors.grey.shade800,
       appBar: buildAppbar(),
       body: buildBody(context),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     _onRefresh();
-      //   },
-      //   backgroundColor: Colors.amber,
-      //   child: const Icon(
-      //     Icons.refresh,
-      //     color: Colors.black,
-      //     size: 32,
-      //   ),
-      // ),
     );
   }
 
@@ -156,8 +144,8 @@ class MyHome2 extends StatelessWidget {
                       ),
                       onTap: () {
                         Get.to(
-                          const MyHome3(),
-                          arguments: [ctrll.chaptersSearch?[index],index],
+                          const AudioPage(),
+                          arguments: [ctrll.chaptersSearch?[index], index],
                         );
                         // Get.offNamed("/home3",arguments: chapters?[index]);
                       },
@@ -210,8 +198,8 @@ class MyHome2 extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Get.to(
-                                    const MyHome3(),
-                                    arguments: [ctrll.chapters?[index],index],
+                                    const AudioPage(),
+                                    arguments: [ctrll.chapters?[index], index],
                                   );
                                   // Get.offNamed("/home3",arguments: chapters?[index]);
                                 },

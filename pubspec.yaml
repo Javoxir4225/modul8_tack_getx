@@ -44,6 +44,12 @@ dependencies:
   pull_to_refresh: ^2.0.0
   audioplayers: ^0.20.1
   file_picker: ^5.2.5
+  bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
+  internet_connection_checker: ^1.0.0+1
+  connectivity_plus: ^3.0.3
+  hive_flutter: ^1.1.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
