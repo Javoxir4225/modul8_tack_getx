@@ -156,8 +156,8 @@ class MyHome2 extends StatelessWidget {
                       ),
                       onTap: () {
                         Get.to(
-                          MyHome3(),
-                          arguments: ctrll.chaptersSearch?[index],
+                          const MyHome3(),
+                          arguments: [ctrll.chaptersSearch?[index],index],
                         );
                         // Get.offNamed("/home3",arguments: chapters?[index]);
                       },
@@ -210,8 +210,8 @@ class MyHome2 extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Get.to(
-                                    MyHome3(),
-                                    arguments: ctrll.chapters?[index],
+                                    const MyHome3(),
+                                    arguments: [ctrll.chapters?[index],index],
                                   );
                                   // Get.offNamed("/home3",arguments: chapters?[index]);
                                 },

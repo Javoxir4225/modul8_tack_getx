@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modul8_tack_getx/animations/animation.dart';
+import 'package:modul8_tack_getx/home/audio.dart';
 import 'package:modul8_tack_getx/models/chapter/chapter.dart';
 
 class MyHome3 extends StatelessWidget {
-  MyHome3({
-    super.key,
-  });
-  Chapter? data;
+  const MyHome3({
+    Key? key,
+  }) : super(key: key);
+  // Chapter? data;
   @override
   Widget build(BuildContext context) {
-    data = Get.arguments;
+    final Chapter data = Get.arguments[0] as Chapter;
+    final index = Get.arguments[1] as int;
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey.shade400,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Container(
+          height: 74,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child:  MyAudio(index: index),
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -29,7 +44,7 @@ class MyHome3 extends StatelessWidget {
               title: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  data?.englishName ?? "dd",
+                  data.englishName ?? "dd",
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -51,7 +66,7 @@ class MyHome3 extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          data!.name!,
+                          data.name!,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 48,
@@ -69,9 +84,8 @@ class MyHome3 extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              
               (context, index) {
-                final verse = data?.ayahs?[index]?.text;
+                final verse = data.ayahs?[index]?.text;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: WidgetAnimator(
@@ -103,8 +117,11 @@ class MyHome3 extends StatelessWidget {
                   ),
                 );
               },
-              childCount: data!.ayahs!.length,
+              childCount: data.ayahs!.length,
             ),
+          ),
+          const SliverPadding(
+            padding: EdgeInsets.all(40),
           ),
         ],
       ),

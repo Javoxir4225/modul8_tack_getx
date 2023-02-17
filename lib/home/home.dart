@@ -70,7 +70,7 @@ class MyHome extends StatelessWidget {
                 backgroundColor: Color.fromARGB(255, 185, 139, 41),
                 shadowColor: Colors.amber,
                 elevation: 6,
-                fixedSize: const Size(250, 44),
+                fixedSize: const Size(250, 56),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
