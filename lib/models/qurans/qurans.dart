@@ -1,29 +1,31 @@
 import 'dart:convert';
-part 'ayah.g.dart';
 
-// @HiveType(typeId: 0)
-class Ayah {
-  // @HiveField(0)
+import 'package:hive/hive.dart';
+part 'qurans.g.dart';
+
+@HiveType(typeId: 0)
+class Qurans {
+  @HiveField(0)
   final num? number;
-  // @HiveField(1)
+  @HiveField(1)
   final String? text;
-  Ayah({
+  Qurans({
     this.number,
     this.text,
   });
 
-  Ayah copyWith({
+  Qurans copyWith({
     num? number,
     String? text,
   }) {
-    return Ayah(
+    return Qurans(
       number: number ?? number,
       text: text ?? text,
     );
   }
 
-  Ayah merge(Ayah model) {
-    return Ayah(
+  Qurans merge(Qurans model) {
+    return Qurans(
       number: model.number ?? number,
       text: model.text ?? text,
     );
@@ -36,8 +38,8 @@ class Ayah {
     };
   }
 
-  factory Ayah.fromMap(Map<String, dynamic> map) {
-    return Ayah(
+  factory Qurans.fromMap(Map<String, dynamic> map) {
+    return Qurans(
       number: map['number'],
       text: map['text'],
     );
@@ -45,7 +47,7 @@ class Ayah {
 
   String toJson() => json.encode(toMap());
 
-  factory Ayah.fromJson(String source) => Ayah.fromMap(json.decode(source));
+  factory Qurans.fromJson(String source) => Qurans.fromMap(json.decode(source));
 
   @override
   String toString() => 'Ayah(number: $number, text: $text)';
@@ -54,7 +56,7 @@ class Ayah {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Ayah && other.number == number && other.text == text;
+    return other is Qurans && other.number == number && other.text == text;
   }
 
   @override

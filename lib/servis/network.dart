@@ -1,44 +1,50 @@
 import 'package:dio/dio.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:modul8_tack_getx/core/network_info/network_info.dart';
+import 'package:modul8_tack_getx/exceptions.dart';
 import 'package:modul8_tack_getx/models/chapter/chapter.dart';
+import 'package:modul8_tack_getx/servis/hive.dart';
 
-class Network {
+class GetQuranApi {
+  final NetworkInfo networkInfo;
+  final HiveSave localHive;
+  final Box local;
+  GetQuranApi({
+    required this.networkInfo,
+    required this.localHive,
+    required this.local,
+  });
   static String baseUrl = "api.alquran.cloud/v1/quran/quran-uthmani";
-  static Map<String, String> headers = {
-    "Content-Type": "applicaton/json; charset=UTF-8"
-  };
   static Dio ins = Dio();
-// static final cache = Hive.box('data');
 
   Future<List<Chapter>?> getApi() async {
-    final resp = await ins.get(
-      'http://api.alquran.cloud/v1/quran/quran-uthmani',
-    );
-    final Map<String, dynamic> raw = resp.data['data'];
-    //  print("-----------------------");
-    final List data = raw['surahs'];
-    //  print("==============${data.length}");
-    final List<Chapter> chapters = List.generate(
-      data.length,
-      (index) => Chapter.fromMap(data[index]),
-    );
-    // await cache.put(
-    //   'chapters',
-    //   chapters,
-    // );
-    //  print("22222222222222${chapters[0].}")
-    return chapters;
+    // final isGuest = prefs.getBool("is_guest");
+    final isGuest = local.get("is_guest");
+
+    if (isGuest == false) {
+      final chapterHive = localHive.localHiveGetChapter();
+      return chapterHive;
+    } else {
+      if (await networkInfo.isConnected) {
+        final resp = await ins.get(
+          'http://api.alquran.cloud/v1/quran/quran-uthmani',
+        );
+        final Map<String, dynamic> raw = resp.data['data'];
+        final List data = raw['surahs'];
+        final List<Chapter> chapters = List.generate(
+          data.length,
+          (index) {
+            final chapter = Chapter.fromMap(data[index]);
+            localHive.localHiveAddChapter(chapter);
+            return chapter;
+          },
+        );
+        // prefs.setBool("is_guest", false);
+        local.put("is_guest", false);
+        return chapters;
+      } else {
+        throw NetworkException();
+      }
+    }
   }
-  // static Future<List<Chapter?>?> chapterHive() async {
-  //   try {
-  //     final chapter = await cache.get('chapters');
-
-  //     if (chapter == null) return null;
-
-  //     final List<Chapter?>? chapters = List.from(chapter);
-
-  //     return chapters;
-  //   } catch (e) {
-  //     throw Exception("Internal Server Error");
-  //   }
-  // }
 }

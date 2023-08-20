@@ -1,12 +1,12 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:modul8_tack_getx/controller/controller.dart';
-import 'package:modul8_tack_getx/pages/home_page/home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:modul8_tack_getx/pages/home_page/home_bloc.dart';
+import 'package:modul8_tack_getx/pages/home_page/home_page.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,11 @@ class SplashPage extends StatelessWidget {
               height: 300,
               width: 250,
             )),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 "Yuk...!",
                 style: TextStyle(color: Colors.grey, fontSize: 28),
@@ -55,51 +55,66 @@ class SplashPage extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 40),
+        const SizedBox(height: 40),
         Expanded(
           child: Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Get.to(
-                  MyHome(
-                    ctrll: Controller(),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 116, horizontal: 16),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return BlocProvider(
+                          create: (context) => HomeBloc(
+                            network: GetIt.instance.get(),
+                          ),
+                          child: MyHomePage(),
+                        );
+                      },
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 185, 139, 41),
+                  shadowColor: Colors.amber,
+                  elevation: 6,
+                  fixedSize: const Size(double.maxFinite, double.maxFinite),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 185, 139, 41),
-                shadowColor: Colors.amber,
-                elevation: 6,
-                fixedSize: const Size(250, 56),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
                 ),
-              ),
-              child: Text(
-                "Surat",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
+                child: const Text(
+                  "Surah",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        Text(
-          "\"Sesungguhnya Kami-lah yang menurunkan Al-Qur'an \ndan sesungguhnya Kamilah yang memeliharanya\"",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.grey,
+        const Center(
+          child: Text(
+            "Mishari Rashid Al-Qur'an",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey,
+            ),
           ),
         ),
-        SizedBox(height: 12),
-        Center(
+        const SizedBox(height: 12),
+        const Center(
           child: Text(
-            "Surat Al-Hijr\n",
+            "Surat Al-Hijr",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ),
+        SizedBox(height: ScreenUtil().bottomBarHeight + 8),
       ],
     );
   }

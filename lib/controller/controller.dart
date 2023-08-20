@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:modul8_tack_getx/models/chapter/chapter.dart';
-import 'package:modul8_tack_getx/servis/network.dart';
 
 class Controller extends GetxController {
   bool _isRefresh = false;
-  bool _istext = false;
 
   // data
 
@@ -16,7 +14,6 @@ class Controller extends GetxController {
   List<Chapter?>? get chaptersSearch => _chaptersSearch;
 
   bool get isRefresh => _isRefresh;
-  bool get istext => _istext;
 
   // states
   EnumState chapterState = EnumState.initial;
@@ -33,10 +30,10 @@ class Controller extends GetxController {
     update();
   }
 
-  void onPressed2(bool loading) {
-    _istext = loading;
-    update();
-  }
+  // void onPressed2(bool loading) {
+  //   _istext = loading;
+  //   update();
+  // }
 
   void onPressed3() {
     _chaptersSearch = [];
@@ -62,8 +59,8 @@ class Controller extends GetxController {
   void getApi() async {
     try {
       updateApiState(EnumState.loading);
-      final res = await Network.getApi();
-      _chapters = res;
+      // final res = await Network.getApi();
+      // _chapters = res;
       print("+++++++++++++++++");
       updateApiState(EnumState.loaded);
     } catch (e) {

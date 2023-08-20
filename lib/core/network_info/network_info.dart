@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:modul8_tack_getx/util/print_debug.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;
@@ -13,6 +14,9 @@ class NetworkInfoImpl extends NetworkInfo {
 
   @override
   Future<bool> get isConnected async {
+    connectivity.onConnectivityChanged.listen((event) {
+      printDebug("connectivity status changed status => ${event.name}");
+    });
     final result = await connectivity.checkConnectivity();
     //with connectivity we can check our data use mobile data or wifi or ethernet or none
     if (result != ConnectivityResult.bluetooth &&

@@ -1,24 +1,25 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:modul8_tack_getx/models/ayah/ayah.dart';
+import 'package:hive/hive.dart';
+import 'package:modul8_tack_getx/models/qurans/qurans.dart';
 
 part 'chapter.g.dart';
 
-// @HiveType(typeId: 1)
+@HiveType(typeId: 1)
 class Chapter {
-  // @HiveField(0)
+  @HiveField(0)
   final int? number;
-  // @HiveField(1)
+  @HiveField(1)
   final String? name;
-  // @HiveField(2)
+  @HiveField(2)
   final String? englishName;
-  // @HiveField(3)
+  @HiveField(3)
   final String? englishNameTranslation;
-  // @HiveField(4)
+  @HiveField(4)
   final String? revelationType;
-  // @HiveField(5)
-  final List<Ayah?>? ayahs;
+  @HiveField(5)
+  final List<Qurans?>? ayahs;
   Chapter({
     this.number,
     this.name,
@@ -34,7 +35,7 @@ class Chapter {
     String? englishName,
     String? englishNameTranslation,
     String? revelationType,
-    List<Ayah?>? ayahs,
+    List<Qurans?>? ayahs,
   }) {
     return Chapter(
       number: number ?? this.number,
@@ -77,7 +78,7 @@ class Chapter {
       englishName: map['englishName'],
       englishNameTranslation: map['englishNameTranslation'],
       revelationType: map['revelationType'],
-      ayahs: List<Ayah>.from(map['ayahs']?.map((x) => Ayah.fromMap(x))),
+      ayahs: List<Qurans>.from(map['ayahs']?.map((x) => Qurans.fromMap(x))),
     );
   }
 

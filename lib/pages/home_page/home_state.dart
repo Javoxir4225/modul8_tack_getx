@@ -3,6 +3,9 @@ import 'package:modul8_tack_getx/models/chapter/chapter.dart';
 abstract class HomeState {}
 
 class Initial extends HomeState {}
+class OnpressedState extends HomeState {}
+class OnpressedEmptyState extends HomeState {}
+class OnpressedSearchState extends HomeState {}
 
 class FetchQuranStat extends HomeState {
   final List<Chapter>? chapters;
